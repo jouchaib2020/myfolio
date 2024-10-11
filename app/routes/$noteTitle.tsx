@@ -1,12 +1,11 @@
 import { json, LoaderFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import NoteContent from "~/components/NoteContent";
+import NoteContent from "@/components/NoteContent";
 import { useState, useRef, useEffect } from "react";
-import NotesList from "~/components/NotesList";
-import { getNotes } from "~/utils/types";
+import NotesList from "@/components/NotesList";
+import { notes } from "@/utils/types";
 
 export const loader: LoaderFunction = async ({ params }) => {
-  const notes = getNotes();
   const note = notes.find(
     (n) => n.title.toLowerCase() === params.noteTitle?.toLowerCase()
   );
@@ -56,10 +55,10 @@ export default function NotePage() {
         style={{ width: `${sidebarWidth}px` }}
       >
         <NotesList notes={notes} />
-        <span
+        <button
           className="absolute top-0 right-0 w-1 h-full cursor-col-resize bg-gray-400 opacity-0 hover:opacity-100"
           onMouseDown={handleMouseDown}
-        ></span>
+        ></button>
       </div>
       <div className="flex-grow">
         <NoteContent note={note} />

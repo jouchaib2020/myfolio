@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Note } from "~/utils/types";
+import { Note } from "@/utils/types";
 
 type NoteContentProps = {
   note: Note;
