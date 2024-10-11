@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "@remix-run/react";
-import { Note } from "~/utils/types";
+import { Note } from "@/utils/types";
 
 type NotesListProps = {
   notes: Note[];
