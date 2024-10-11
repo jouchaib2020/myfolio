@@ -147,7 +147,6 @@ export default function Component() {
         </ScrollArea>
       </div>
 
-      {/* Main Content */}
       <div className="flex-grow bg-[#1c1c1e] p-6 overflow-auto">
         {selectedNote && (
           <div>
