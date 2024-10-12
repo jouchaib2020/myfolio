@@ -1,7 +1,7 @@
 import { useState } from "react";
-// import { Search, Edit3, ChevronRight } from "lucide-react";
-// import { ScrollArea } from "@/components/ui/scroll-area";
-// import { Input } from "@/components/ui/input";
+import { Search, Edit3, ChevronRight } from "lucide-react";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Input } from "@/components/ui/input";
 import { Note, notes } from "@/utils/types";
 
 export default function Component() {
@@ -10,9 +10,9 @@ export default function Component() {
   return (
     <div className="flex h-screen bg-[#1c1c1e] text-[#e5e5e5] font-sans">
       {/* Sidebar */}
-      {/* <div className="w-80 bg-[#2c2c2e] border-r border-[#3a3a3c] flex flex-col"> */}
-      {/* Search and Edit */}
-      {/* <div className="p-2 flex items-center space-x-2 border-b border-[#3a3a3c]">
+      <div className="w-80 bg-[#2c2c2e] border-r border-[#3a3a3c] flex flex-col">
+        {/* Search and Edit */}
+        <div className="p-2 flex items-center space-x-2 border-b border-[#3a3a3c]">
           <div className="relative flex-grow">
             <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-[#8e8e93]" />
             <Input
@@ -23,10 +23,10 @@ export default function Component() {
           <button className="text-[#0a84ff] hover:text-[#409cff]">
             <Edit3 className="h-5 w-5" />
           </button>
-        </div> */}
+        </div>
 
-      {/* Notes List */}
-      {/* <ScrollArea className="flex-grow">
+        {/* Notes List */}
+        <ScrollArea className="flex-grow">
           <div className="p-2">
             <div className="mb-4">
               <h2 className="text-[#8e8e93] text-xs font-semibold mb-2 px-2">
@@ -145,17 +145,17 @@ export default function Component() {
             </div>
           </div>
         </ScrollArea>
-      </div> */}
+      </div>
 
       {/* Main Content */}
-      {/* <div className="flex-grow bg-[#1c1c1e] p-6 overflow-auto">
+      <div className="flex-grow bg-[#1c1c1e] p-6 overflow-auto">
         {selectedNote && (
           <div>
             <h1 className="text-2xl font-bold mb-4">{selectedNote.title}</h1>
             <div className="whitespace-pre-wrap">{selectedNote.content}</div>
           </div>
         )}
-      </div> */}
+      </div>
     </div>
   );
 }
