@@ -4,6 +4,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
 import { Note, notes } from "@/utils/types";
 import { AnimatePresence, motion } from "framer-motion";
+import NoteContent from "@/components/NoteContent";
 
 export default function Component() {
   const [selectedNote, setSelectedNote] = useState<Note | null>(notes[2]); // Set "principles" as default selected note
@@ -85,19 +86,10 @@ export default function Component() {
       </motion.div>
 
       {/* Main Content */}
-      <div className="flex-grow bg-[#1c1c1e] p-6 overflow-auto">
+      <div className="p-3 w-full min-h-dvh">
         {/* <AnimatePresence> */}
         {selectedNote && (
-          <motion.div
-            key={selectedNote?.id}
-            initial={{ y: -10, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: 10, opacity: 0 }}
-            transition={{ type: "tween", duration: 0.2 }}
-          >
-            <h1 className="text-2xl font-bold mb-4">{selectedNote.title}</h1>
-            <div className="whitespace-pre-wrap">{selectedNote.content}</div>
-          </motion.div>
+          <NoteContent note={selectedNote} key={selectedNote.id} />
         )}
         {/* </AnimatePresence> */}
       </div>
