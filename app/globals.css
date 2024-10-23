@@ -97,3 +97,10 @@
     @apply bg-background text-foreground;
   }
 }
+.sidebar {
+  scrollbar-width: none; /* Firefox */
+}
+
+.sidebar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, and Edge */
+}
