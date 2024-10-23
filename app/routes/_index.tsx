@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { Search, SquarePen, ChevronRight, Pin } from "lucide-react";
+import { Search, SquarePen, Pin } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
 import { Note, notes } from "@/utils/types";
-import { noteIn } from "@/utils/utils";
+import { AnimatePresence, motion } from "framer-motion";
 
 export default function Component() {
   const [selectedNote, setSelectedNote] = useState<Note | null>(notes[2]); // Set "principles" as default selected note
@@ -11,7 +11,12 @@ export default function Component() {
   return (
     <div className="flex h-screen bg-[#1c1c1e] text-[#e5e5e5] font-sans">
       {/* Sidebar */}
-      <div className="sidebar w-64 flex-shrink-0 border-r border-gray-400/20 overflow-y-auto ">
+      <motion.div
+        className="sidebar w-64 flex-shrink-0 border-r border-gray-400/20 overflow-y-auto"
+        initial={{ x: -100 }}
+        animate={{ x: 0 }}
+        transition={{ type: "spring", stiffness: 60 }}
+      >
         {/* Search and Edit */}
         <div className="p-2 flex items-center space-x-2">
           <div className="relative flex-grow">
@@ -62,14 +67,14 @@ export default function Component() {
               <Section.Title>Yesterday</Section.Title>
             </Section>
             <Section
-              notes={notes.slice(6, 8)}
+              notes={notes.slice(7, 9)}
               selectedNote={selectedNote}
               setSelectedNote={setSelectedNote}
             >
               <Section.Title>Last Week</Section.Title>
             </Section>
             <Section
-              notes={notes.slice(8)}
+              notes={notes.slice(9)}
               selectedNote={selectedNote}
               setSelectedNote={setSelectedNote}
             >
@@ -77,16 +82,24 @@ export default function Component() {
             </Section>
           </div>
         </ScrollArea>
-      </div>
+      </motion.div>
 
       {/* Main Content */}
       <div className="flex-grow bg-[#1c1c1e] p-6 overflow-auto">
+        {/* <AnimatePresence> */}
         {selectedNote && (
-          <div>
+          <motion.div
+            key={selectedNote?.id}
+            initial={{ y: -10, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 10, opacity: 0 }}
+            transition={{ type: "tween", duration: 0.2 }}
+          >
             <h1 className="text-2xl font-bold mb-4">{selectedNote.title}</h1>
             <div className="whitespace-pre-wrap">{selectedNote.content}</div>
-          </div>
+          </motion.div>
         )}
+        {/* </AnimatePresence> */}
       </div>
     </div>
   );
@@ -108,15 +121,21 @@ function Section({
       {children}
       <ul className="space-y-2">
         {notes.map((note) => (
-          <li
+          <motion.li
             className={`min-h-[50px] rounded-md px-2 ${
               selectedNote?.id === note.id
                 ? "bg-[#9D7D28]"
                 : "hover:bg-[#3a3a3c]"
             }`}
             key={note.id}
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 10 }}
+            transition={{ duration: 0.2 }}
           >
-            <button
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               onClick={() => setSelectedNote(note)}
               className="py-2 w-full flex flex-col items-start justify-center"
             >
@@ -125,7 +144,7 @@ function Section({
                 {note.title}
               </h2>
               <p
-                className={`w-full text-xs px-4 overflow-hidden text-ellipsis whitespace-nowrap  ${
+                className={`w-full text-xs px-4 overflow-hidden text-ellipsis whitespace-nowrap ${
                   note.id === selectedNote?.id
                     ? "text-gray-300"
                     : "text-gray-400"
@@ -134,8 +153,8 @@ function Section({
                 <span className="text-white">{note.date}</span>
                 <span className="ms-1">{note.content}</span>
               </p>
-            </button>
-          </li>
+            </motion.button>
+          </motion.li>
         ))}
       </ul>
     </div>
@@ -150,11 +169,3 @@ Section.Title = function SectionTitle({
     <h3 className="text-gray-400 text-xs font-bold mb-2 px-2">{children}</h3>
   );
 };
-
-<style jsx>
-  {`
-    sidebar::-webkit-scrollbar {
-      display: none;
-    }
-  `}
-</style>;
